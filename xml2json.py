@@ -193,9 +193,9 @@ def main():
     p = optparse.OptionParser(
         description='Converts XML to JSON or the other way around.  Reads from standard input by default, or from file if given.',
         prog='xml2json',
-        usage='%prog -t xml2json -o file.json [file]'
+        usage='%prog [-o output.json] [file]'
     )
-    p.add_option('--type', '-t', help="'xml2json' or 'json2xml'")
+    p.add_option('--type', '-t', help="'xml2json' or 'json2xml' (Default: 'xml2json')")
     p.add_option('--out', '-o', help="Write to OUT instead of stdout")
     p.add_option(
         '--strip_text', action="store_true",
@@ -230,10 +230,10 @@ def main():
         strip_ns = 1
     if options.strip_nl:
        input = input.replace('\n', '').replace('\r','')
-    if (options.type == "xml2json"):
-        out = xml2json(input, options, strip_ns, strip)
-    else:
+    if (options.type == "json2xml"):
         out = json2xml(input)
+    else:
+        out = xml2json(input, options, strip_ns, strip)
 
     if (options.out):
         file = open(options.out, 'w')
